@@ -1,4 +1,4 @@
-import { LoginPage } from '../../support/pages/loginPage'
+import { LoginPage } from '@support/pages/loginPage'
 
 describe('anonymous user', () => {
   it('gets an error trying to visit the inventory page', () => {
