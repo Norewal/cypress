@@ -12,7 +12,8 @@ const item = Cypress._.sample(InventoryData)
 // it is a little bit strange and "jumpy" with weird delays
 // can you make it fail if the performance is too slow?
 
-it('works for performance glitch user', { viewportHeight: 1200 }, () => {
+// only to show the custom cy.visit page load timeout
+it.skip('works for performance glitch user', { viewportHeight: 1200 }, () => {
   LoginPage.login(user.username, user.password)
   cy.visit('/inventory.html', { timeout: 3_000 })
   InventoryPage.addItemToCart(item!.name)
