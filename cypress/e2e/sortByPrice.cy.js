@@ -20,12 +20,14 @@ describe('sorting', () => {
     cy.location('pathname').should('equal', '/inventory.html')
   })
 
-  // Sorts items by price
-  // @param {'lohi'| 'hilo'} order
+  /**
+   *Sorts items by price
+   * @param {'lohi'| 'hilo'| 'az'| 'za'} order
+   */
 
-  function sortByPrice(order) {
-    expect(order, 'sort order').to.be.oneOf(['lohi', 'hilo'])
-    cy.log(`**sort by price ${order}**`)
+  function sortByPriceOrName(order) {
+    expect(order, 'sort order').to.be.oneOf(['lohi', 'hilo', 'az', 'za'])
+    cy.log(`**sort by ${order}**`)
     cy.get('[data-test="product_sort_container"]').select(order)
   }
 
@@ -35,6 +37,13 @@ describe('sorting', () => {
       .map('innerText')
       .mapInvoke('slice', 1)
       .map(Number)
+      .print('sorted prices %o')
+  }
+
+  function getNames() {
+    return cy
+      .get('.inventory_item_name')
+      .map('innerText')
       .print('sorted prices %o')
   }
 
@@ -49,12 +58,12 @@ describe('sorting', () => {
     //   .map(Number)
     //   .print('prices %o')
     //   .should('be.ascending')
-    sortByPrice('lohi')
+    sortByPriceOrName('lohi')
     getPrices().should('be.ascending')
   })
 
   it('by price highest to lowest', () => {
-    cy.log('**sort by price low to high**')
+    cy.log('**sort by price high to low **')
     // sort the items from high to low price
     // confirm the item prices are sorted from highest to lowest
     // cy.get('[data-test="product_sort_container"]').select('hilo')
@@ -64,7 +73,19 @@ describe('sorting', () => {
     //   .map(Number)
     //   .print('prices %o')
     //   .should('be.descending')
-    sortByPrice('hilo')
+    sortByPriceOrName('hilo')
     getPrices().should('be.descending')
+  })
+
+  it('by names from A to Z', () => {
+    cy.log('**sort by name from A to Z **')
+    sortByPriceOrName('az')
+    getNames().should('be.ascending')
+  })
+
+  it('by names from Z to A', () => {
+    cy.log('**sort by name from Z to A **')
+    sortByPriceOrName('za')
+    getNames().should('be.descending')
   })
 })
