@@ -24,6 +24,7 @@
     "@babel/register": "^7.13.14",
     "chai-sorted": "^0.2.0",
     "cypress": "^12.17.2",
+    "cypress-data-session": "^2.7.0",
     "prettier": "^2.8.3",
     "prop-types": "^15.7.2"
   },

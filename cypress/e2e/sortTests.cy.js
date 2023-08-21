@@ -3,27 +3,34 @@ import 'cypress-map'
 // https://www.chaijs.com/plugins/chai-sorted/
 chai.use(require('chai-sorted'))
 
+import 'cypress-data-session'
+
 describe('sorting', () => {
-  let userCookie
-
   beforeEach(() => {
-    if (userCookie) {
-      cy.setCookie('session-username', userCookie.value, userCookie)
-      cy.visit('/inventory.html')
-    } else {
-      cy.log('**log in**')
-      cy.visit('/')
-      cy.get('[data-test="username"]').type('standard_user')
-      cy.get('[data-test="password"]').type('secret_sauce')
-      cy.get('[data-test="login-button"]').click()
-      cy.location('pathname').should('equal', '/inventory.html')
+    cy.dataSession({
+      name: 'user session',
+      shareAcrossSpecs: true,
+      setup() {
+        cy.log('**log in**')
+        cy.visit('/')
+        cy.get('[data-test="username"]').type('standard_user')
+        cy.get('[data-test="password"]').type('secret_sauce')
+        cy.get('[data-test="login-button"]').click()
+        cy.location('pathname').should('equal', '/inventory.html')
 
-      cy.getCookie('session-username')
-        .should('exist')
-        .then((c) => ((userCookie = c), console.log(userCookie)))
-    }
-    // cy.location('pathname').should('equal', '/inventory.html')
+        cy.getCookie('session-username').should('exist')
+      },
+      recreate(userCookie) {
+        cy.setCookie('session-username', userCookie.value, userCookie)
+        cy.visit('/inventory.html')
+      },
+    })
+
+    cy.location('pathname').should('equal', '/inventory.html')
   })
+
+  //info:
+  // devTool/console/ Cypress.getDataSessionDetails('user session')
 
   /**
    * Sorts item by price or name
