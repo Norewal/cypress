@@ -5,8 +5,8 @@ chai.use(require('chai-sorted'))
 
 import 'cypress-data-session'
 
-describe('sorting', () => {
-  beforeEach(() => {
+describe('sorting', { testIsolation: false }, () => {
+  before(() => {
     cy.dataSession({
       name: 'user session',
       shareAcrossSpecs: true,
