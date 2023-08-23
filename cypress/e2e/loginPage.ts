@@ -26,12 +26,26 @@ export const LoginPage = {
   },
 
   login(username: string, password: string) {
-    cy.session(`user ${username} session`, () => {
-      cy.visit('/')
-      LoginPage.getUsername().type(username)
-      LoginPage.getPassword().type(password, { log: false })
-      LoginPage.getLogin().click()
-      cy.location('pathname').should('equal', '/inventory.html')
-    })
+    cy.session(
+      `user ${username} login`,
+      () => {
+        cy.log('**log in**')
+        cy.visit('/')
+        LoginPage.getUsername().type(username)
+        // hide the password from the Console Log
+        LoginPage.getPassword().type(password, { log: false })
+        LoginPage.getLogin().click()
+        cy.location('pathname').should('equal', '/inventory.html')
+      },
+      {
+        validate() {
+          cy.log('**validate login session**')
+          // try visiting the page and
+          // confirm the browser stays at /inventory.html
+          cy.visit('/inventory.html')
+          cy.location('pathname').should('equal', '/inventory.html')
+        },
+      },
+    )
   },
 }
