@@ -2,6 +2,11 @@ import { LoginPage } from './loginPage'
 import { InventoryPage } from './inventoryPage.cy'
 import { LoginInfo } from './index'
 
+interface LoginInfo {
+  username: string
+  password: string
+}
+
 describe('Cart', () => {
   const user: LoginInfo = Cypress.env('users').standard
   // we can even check if the user object is valid
