@@ -1,9 +1,11 @@
 import { LoginPage } from './loginPage'
 
 it('logs out', () => {
+  /** @type {{username: string, password: string}} */
+  const user = Cypress.env('users').standard
   // use LoginPage to log the standard user in
   // LoginPage.login(username, password)
-  LoginPage.login('standard_user', 'secret_sauce')
+  LoginPage.login(user.username, user.password)
 
   // confirm we are logged in by visiting the inventory page
   // https://on.cypress.io/visit
