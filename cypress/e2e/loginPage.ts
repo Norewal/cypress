@@ -1,6 +1,3 @@
-// @ts-check
-/// <reference types="cypress" />
-
 export const LoginPage = {
   getUsername() {
     return cy.get('[data-test="username"]')
@@ -20,13 +17,15 @@ export const LoginPage = {
   getLogin() {
     return cy.get('[data-test="login-button"]')
   },
-  showsError(text) {
+
+  showsError(text: string) {
     cy.log('**error:...**')
     LoginPage.getError().should('have.text', text).should('be.visible')
     LoginPage.getUsername().should('have.class', 'error')
     LoginPage.getPassword().should('have.class', 'error')
   },
-  login(username, password) {
+
+  login(username: string, password: string) {
     cy.session(`user ${username} session`, () => {
       cy.visit('/')
       LoginPage.getUsername().type(username)

@@ -3,11 +3,7 @@ export const InventoryPage = {
     return cy.get('.shopping_cart_link').find('.shopping_cart_badge')
   },
 
-  /**
-   * Add the item to cart by clicking on the "Add to cart" button
-   * @param {string} name Item name
-   */
-  addItemToCart(name) {
+  addItemToCart(name: string) {
     cy.contains('.inventory_item', name)
       .contains('button', 'Add to cart')
       .click()

@@ -10,7 +10,7 @@ describe('anonymous user', () => {
     // confirm the page shows an error
     // confirm the error message includes the page name
     // https://on.cypress.io/contains
-    LoginPage.getError('be.visible')
+    LoginPage.getError()
       .and('include.text', 'Epic sadface: ') //no need full text
       .and('include.text', '/inventory.html')
     // confirm the username and the password fields
