@@ -1,6 +1,7 @@
 import { LoginPage } from './loginPage'
 import { InventoryPage } from './inventoryPage.cy'
 import { LoginInfo } from './index'
+import inventory from '../fixtures/inventory.json'
 
 describe('Cart', () => {
   const user: LoginInfo = Cypress.env('users').standard
@@ -26,6 +27,11 @@ describe('Cart', () => {
         'Sauce Labs Bolt T-Shirt',
         'Sauce Labs Onesie',
       ]
+      //find id for each item by name
+      const idList = items.map(
+        (name) => Cypress._.find(inventory, { name })!.id,
+      )
+
       // add each item to cart using the InventoryPage object
       items.forEach(InventoryPage.addItemToCart)
       cy.log('**added all items to cart**')
@@ -58,6 +64,7 @@ describe('Cart', () => {
             cy.contains('.cart_quantity', 1)
           })
       })
+
       //The test checks the page, but the application also stores the ids of the items in the cart in the window.localStorage
       //application/storage/local storage/loc:3000
       //Assuming the item ids are indeed 0, 1, and 2, can you confirm the right array of ids is stored in the local storage?
@@ -77,7 +84,8 @@ describe('Cart', () => {
         // Tip: local storage usually has stringified JSON
         // @ts-ignore
         .then(JSON.parse)
-        .should('deep.equal', [0, 1, 2])
+        // .should('deep.equal', [0, 1, 2])
+        .should('deep.equal', idList)
     },
   )
 })
