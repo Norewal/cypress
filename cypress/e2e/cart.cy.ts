@@ -2,11 +2,6 @@ import { LoginPage } from './loginPage'
 import { InventoryPage } from './inventoryPage.cy'
 import { LoginInfo } from './index'
 
-interface LoginInfo {
-  username: string
-  password: string
-}
-
 describe('Cart', () => {
   const user: LoginInfo = Cypress.env('users').standard
   // we can even check if the user object is valid
@@ -63,6 +58,26 @@ describe('Cart', () => {
             cy.contains('.cart_quantity', 1)
           })
       })
+      //The test checks the page, but the application also stores the ids of the items in the cart in the window.localStorage
+      //application/storage/local storage/loc:3000
+      //Assuming the item ids are indeed 0, 1, and 2, can you confirm the right array of ids is stored in the local storage?
+
+      // get the application window object
+      // https://on.cypress.io/window
+      cy.window()
+        // get its property "localStorage"
+        // https://on.cypress.io/its
+        .its('localStorage')
+        // and call the method "getItem" to get the cart contents
+        // https://on.cypress.io/invoke
+        .invoke('getItem', 'cart-contents')
+        .should('exist')
+        // confirm the list is [0, 1, 2]
+        // https://glebbahmutov.com/cypress-examples/commands/assertions.html
+        // Tip: local storage usually has stringified JSON
+        // @ts-ignore
+        .then(JSON.parse)
+        .should('deep.equal', [0, 1, 2])
     },
   )
 })
