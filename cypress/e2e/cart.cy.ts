@@ -1,7 +1,7 @@
 import { LoginPage } from './loginPage'
 import { InventoryPage } from './inventoryPage.cy'
 import { LoginInfo } from './index'
-import inventory from '../fixtures/inventory.json'
+import { InventoryData } from '../../src/utils/InventoryData'
 
 describe('Cart', () => {
   const user: LoginInfo = Cypress.env('users').standard
@@ -29,7 +29,7 @@ describe('Cart', () => {
       ]
       //find id for each item by name
       const idList = items.map(
-        (name) => Cypress._.find(inventory, { name })!.id,
+        (name) => Cypress._.find(InventoryData, { name })!.id,
       )
 
       // add each item to cart using the InventoryPage object
