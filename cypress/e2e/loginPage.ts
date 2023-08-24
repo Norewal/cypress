@@ -26,6 +26,7 @@ export const LoginPage = {
   },
 
   login(username: string, password: string) {
+    let userCookie
     cy.session(
       `user ${username} login`,
       () => {
@@ -42,8 +43,23 @@ export const LoginPage = {
           cy.log('**validate login session**')
           // try visiting the page and
           // confirm the browser stays at /inventory.html
-          cy.visit('/inventory.html')
-          cy.location('pathname').should('equal', '/inventory.html')
+          // cy.visit('/inventory.html')
+          // cy.location('pathname').should('equal', '/inventory.html')
+
+          //first way:
+          // cy.getCookie('session-username')
+          //   .should('exist')
+          //   .then((cookie) => {
+          //     if (!cookie) {
+          //       return false
+          //     }
+          //   })
+
+          //make it shorter:
+          // 1: casting `null` to false
+          // cy.getCookie('session-username').then(Boolean)
+          //2: using assertion
+          cy.getCookie('session-username').should('exist')
         },
       },
     )
