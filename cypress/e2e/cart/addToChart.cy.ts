@@ -1,5 +1,5 @@
-import { LoginPage } from './loginPage'
-import { InventoryPage } from './inventoryPage.cy'
+import { LoginPage } from '../../support/pages/loginPage'
+import { InventoryPage } from '../../support/pages/inventoryPage'
 
 interface LogInfo {
   username: string
