@@ -1,4 +1,4 @@
-import { LoginPage } from '../../support/pages/loginPage'
+import { LoginPage } from '@support/pages/loginPage'
 
 describe('Login form', () => {
   // visit the login page before each test

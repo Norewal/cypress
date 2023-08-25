@@ -8,7 +8,12 @@
     "noEmit": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "src",
+    "paths": {
+      "@support/*": ["../cypress/support/*"],
+      "@fixtures/*": ["../cypress/fixtures/*"]
+    }
   },
   "include": [
     "cypress/e2e/**/*.js",

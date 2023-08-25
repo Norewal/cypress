@@ -1,4 +1,4 @@
-import { LoginPage } from '../../support/pages/loginPage'
+import { LoginPage } from '@support/pages/loginPage'
 
 it('logs out', () => {
   /** @type {{username: string, password: string}} */
