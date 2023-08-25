@@ -1,9 +1,17 @@
 export const LoginPage = {
+  selectors: {
+    username: '[data-test="username"]',
+    password: '[data-test="password"]',
+    form: '.login-box form',
+  },
+
   getUsername() {
-    return cy.get('[data-test="username"]')
+    // return cy.get('[data-test="username"]')
+    return cy.get(LoginPage.selectors.username)
   },
   getPassword() {
-    return cy.get('[data-test="password"]')
+    // return cy.get('[data-test="password"]')
+    return cy.get(LoginPage.selectors.password)
   },
   getError() {
     return cy.get('[data-test=error]')
@@ -25,16 +33,26 @@ export const LoginPage = {
     LoginPage.getPassword().should('have.class', 'error')
   },
 
+  /**
+   * Logs the user and caches the session
+   * @param username
+   * @param password
+   */
+
   login(username: string, password: string) {
-    let userCookie
+    // let userCookie
     cy.session(
       `user ${username} login`,
       () => {
         cy.log('**log in**')
         cy.visit('/')
-        LoginPage.getUsername().type(username)
-        // hide the password from the Console Log
-        LoginPage.getPassword().type(password, { log: false })
+        // LoginPage.getUsername().type(username)
+        // // hide the password from the Console Log
+        // LoginPage.getPassword().type(password, { log: false })
+        cy.get(LoginPage.selectors.form).fillForm({
+          [LoginPage.selectors.username]: username,
+          [LoginPage.selectors.password]: password,
+        })
         LoginPage.getLogin().click()
         cy.location('pathname').should('equal', '/inventory.html')
       },
@@ -64,4 +82,7 @@ export const LoginPage = {
       },
     )
   },
-}
+  // as const at the end of the spec->
+  //This prevents any spec file from changing properties inside our login page.
+  //For example, no spec code can overwrite the username selector.
+} as const
