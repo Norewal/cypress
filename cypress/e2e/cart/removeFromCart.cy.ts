@@ -1,5 +1,5 @@
-import { LoginPage } from '../../support/pages/loginPage'
-import { InventoryPage } from '../../support/pages/inventoryPage'
+import { LoginPage } from '@support/pages/loginPage'
+import { InventoryPage } from '@support/pages/inventoryPage'
 import { LoginInfo } from '../index'
 
 describe('Cart', () => {

@@ -1,4 +1,4 @@
-import { LoginPage } from '../../support/pages/loginPage'
+import { LoginPage } from '@support/pages/loginPage'
 
 describe('Product', () => {
   // create a small type on the fly using jsdoc comment
