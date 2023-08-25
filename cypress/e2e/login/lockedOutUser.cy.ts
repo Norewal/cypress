@@ -1,4 +1,4 @@
-import { LoginPage } from './loginPage'
+import { LoginPage } from '../../support/pages/loginPage'
 
 it('shows a login error', () => {
   cy.visit('/')

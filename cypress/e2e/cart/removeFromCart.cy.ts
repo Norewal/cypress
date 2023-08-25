@@ -1,6 +1,6 @@
-import { LoginPage } from './loginPage'
-import { InventoryPage } from './inventoryPage.cy'
-import { LoginInfo } from './index'
+import { LoginPage } from '../../support/pages/loginPage'
+import { InventoryPage } from '../../support/pages/inventoryPage'
+import { LoginInfo } from '../index'
 
 describe('Cart', () => {
   // create a small type on the fly using jsdoc comment

@@ -1,5 +1,4 @@
-import { LoginPage } from './loginPage'
-import 'cypress-map'
+import { LoginPage } from '../../support/pages/loginPage'
 
 describe('Products', () => {
   // create a small type on the fly using jsdoc comment

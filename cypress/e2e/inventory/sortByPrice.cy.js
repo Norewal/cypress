@@ -1,8 +1,3 @@
-import 'cypress-map'
-
-// https://www.chaijs.com/plugins/chai-sorted/
-chai.use(require('chai-sorted'))
-
 describe('sorting', () => {
   beforeEach(() => {
     cy.log('**log in**')

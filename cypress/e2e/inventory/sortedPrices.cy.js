@@ -1,9 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-map'
-
-chai.use(require('chai-sorted'))
-
 it('sorts item by price', () => {
   cy.visit('/')
   // Tip: grab the username and the password from the login page

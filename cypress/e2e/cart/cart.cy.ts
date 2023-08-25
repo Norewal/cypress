@@ -1,7 +1,6 @@
-import { LoginPage } from './loginPage'
-import { InventoryPage } from './inventoryPage.cy'
-import { LoginInfo } from './index'
-import { InventoryData } from '../../src/utils/InventoryData'
+import { LoginPage } from '../../support/pages/loginPage'
+import { LoginInfo } from '../index'
+import { InventoryData } from '../../../src/utils/InventoryData'
 
 describe('Cart', () => {
   const user: LoginInfo = Cypress.env('users').standard

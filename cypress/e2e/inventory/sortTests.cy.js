@@ -1,10 +1,3 @@
-import 'cypress-map'
-
-// https://www.chaijs.com/plugins/chai-sorted/
-chai.use(require('chai-sorted'))
-
-import 'cypress-data-session'
-
 describe('sorting', { testIsolation: false }, () => {
   before(() => {
     cy.dataSession({

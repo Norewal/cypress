@@ -1,4 +1,4 @@
-import item from '../fixtures/bikeLight.json'
+import item from '../../fixtures/bikeLight.json'
 
 beforeEach(() => {
   cy.log('**log in**')
