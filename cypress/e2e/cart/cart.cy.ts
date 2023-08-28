@@ -1,6 +1,7 @@
 import { LoginPage } from '@support/pages/loginPage'
 import { LoginInfo } from '../index'
 import { InventoryData } from '@fixtures/inventoryData'
+import { InventoryPage } from '@support/pages/inventoryPage'
 
 describe('Cart', () => {
   const user: LoginInfo = Cypress.env('users').standard
@@ -30,14 +31,20 @@ describe('Cart', () => {
       const ids = items.map(
         (name) => Cypress._.find(InventoryData, { name })!.id,
       )
+      // add each item to cart using the InventoryPage object
+      items.forEach(InventoryPage.addItemToCart)
+      cy.log('**added all items to cart**')
+      InventoryPage.getCartBadge()
+        .should('have.text', items.length)
+        .scrollIntoView()
+        .wait(1000)
+        .click()
+
       // set the ids in the local storage item "cart-contents"
       // Tip: local storage usually has stringified data
-      window.localStorage.setItem('cart-contents', JSON.stringify(ids))
+      // window.localStorage.setItem('cart-contents', JSON.stringify(ids))
 
-      // visit the cart page
-      // https://on.cypress.io/visit
-      cy.visit('/cart.html')
-
+      cy.location('pathname').should('equal', '/cart.html')
       // confirm each item name is present
       // confirm the cart items list has the right number of elements
       cy.get('.cart_list .cart_item').should('have.length', items.length)
