@@ -24,10 +24,23 @@ module.exports = defineConfig({
           password: 'secret_sauce',
         },
       },
+      // list the files and file patterns to watch
+      'cypress-watch-and-reload': {
+        watch: ['src/**'],
+      },
     },
     setupNodeEvents(on, config) {
+      // implement node event listeners here
+      // and load any plugins that require the Node environment
       registerDataSession(on, config)
+      // require('cypress-watch-and-reload/plugins')(on, config)
       return config
+    },
+  },
+  component: {
+    devServer: {
+      framework: 'create-react-app',
+      bundler: 'webpack',
     },
   },
 })

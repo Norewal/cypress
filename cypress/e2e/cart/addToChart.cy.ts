@@ -1,15 +1,11 @@
 import { LoginPage } from '@support/pages/loginPage'
 import { InventoryPage } from '@support/pages/inventoryPage'
-
-interface LogInfo {
-  username: string
-  password: string
-}
+import { LoginInfo } from '..'
 
 describe('Cart', () => {
   // create a small type on the fly using jsdoc comment
   // just to help type check help us
-  const user: LogInfo = Cypress.env('users').standard
+  const user: LoginInfo = Cypress.env('users').standard
   // we can even check if the user object is valid
   if (!user) {
     throw new Error('Missing the standard user')

@@ -1,3 +1,9 @@
+interface Item {
+  name: string
+  desc: string
+  price: number
+}
+
 beforeEach(() => {
   cy.log('**log in**')
   cy.visit('/')
@@ -12,7 +18,7 @@ it('has every item from the inventory', () => {
   // https://on.cypress.io/fixture
   cy.fixture('inventory.json').then((items) => {
     // iterate over every data item
-    items.forEach((item) => {
+    items.forEach((item: Item) => {
       cy.log(`checking 🎁 **${item.name}**`)
       // and confirm there is an item on the page
       // with the name, description, and price listed

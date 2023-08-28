@@ -1,6 +1,7 @@
 import { LoginPage } from '@support/pages/loginPage'
 import { LoginInfo } from '..'
 import { InventoryData } from '@fixtures/inventoryData'
+import { CheckoutPage } from '@support/pages/checkoutPage'
 
 describe('Checkout', () => {
   const user: LoginInfo = Cypress.env('users').standard
@@ -53,13 +54,14 @@ describe('Checkout', () => {
     //     .should('have.attr', 'value', 'Continue')
     //     .click()
     // })
-    cy.get('.checkout_info_wrapper form')
-      .fillForm({
-        '#first-name': 'Joe',
-        '#last-name': 'Smith',
-        '#postal-code': '90210',
-      })
-      .submit()
+    // cy.get('.checkout_info_wrapper form')
+    //   .fillForm({
+    //     '#first-name': 'Joe',
+    //     '#last-name': 'Smith',
+    //     '#postal-code': '90210',
+    //   })
+    //   .submit()
+    CheckoutPage.fillInformationForm().submit()
     //
     // we should be on the checkout step two page
     cy.location('pathname').should('equal', '/checkout-step-two.html')

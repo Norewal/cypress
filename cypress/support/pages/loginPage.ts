@@ -14,7 +14,8 @@ export const LoginPage = {
     return cy.get(LoginPage.selectors.password)
   },
   getError() {
-    return cy.get('[data-test=error]')
+    // return cy.get('[data-test=error]')
+    return cy.getByTest('error')
   },
   noErrors() {
     cy.log('**there are no errors**')

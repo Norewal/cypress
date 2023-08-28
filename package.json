@@ -26,6 +26,7 @@
     "cypress": "^12.17.2",
     "cypress-data-session": "^2.7.0",
     "cypress-map": "^1.21.1",
+    "cypress-watch-and-reload": "^1.10.6",
     "prettier": "^2.8.3",
     "prop-types": "^15.7.2",
     "start-server-and-test": "^2.0.0",
