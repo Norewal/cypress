@@ -5,12 +5,16 @@ import { LoginInfo } from '..'
 
 beforeEach(() => {
   const user: LoginInfo = Cypress.env('users').standard
+  // we can even check if the user object is valid
+  if (!user) {
+    throw new Error('Missing the standard user')
+  }
 
   cy.log('**log in**')
   cy.visit('/')
   cy.getByTest('username').type(user.username)
   cy.getByTest('password').type(user.password)
-  cy.getByTest('login-button').click()
+  cy.get('[data-test="login-button"]').click()
   cy.location('pathname').should('equal', '/inventory.html')
 })
 

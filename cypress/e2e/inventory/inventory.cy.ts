@@ -1,3 +1,5 @@
+import { LoginInfo } from '..'
+
 interface Item {
   name: string
   desc: string
@@ -5,11 +7,17 @@ interface Item {
 }
 
 beforeEach(() => {
+  const user: LoginInfo = Cypress.env('users').standard
+  // we can even check if the user object is valid
+  if (!user) {
+    throw new Error('Missing the standard user')
+  }
+
   cy.log('**log in**')
   cy.visit('/')
-  cy.getByTest('username').type('standard_user')
-  cy.getByTest('password').type('secret_sauce')
-  cy.getByTest('login-button').click()
+  cy.getByTest('username').type(user.username)
+  cy.getByTest('password').type(user.password)
+  cy.get('[data-test="login-button"]').click()
   cy.location('pathname').should('equal', '/inventory.html')
 })
 
