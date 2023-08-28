@@ -1,5 +1,6 @@
 import 'cypress-map'
 import './commands'
+import { Route, BrowserRouter } from 'react-router-dom'
 import { mount } from 'cypress/react'
 
 Cypress.Commands.add('mount', mount)
