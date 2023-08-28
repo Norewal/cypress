@@ -1,4 +1,4 @@
-import { LoginPage } from '../support/pages/loginPage'
+import { LoginPage } from '../../support/pages/loginPage'
 
 describe('anonymous user', () => {
   it('gets an error trying to visit the inventory page', () => {
@@ -11,6 +11,7 @@ describe('anonymous user', () => {
     // confirm the error message includes the page name
     // https://on.cypress.io/contains
     LoginPage.getError()
+      .should('be.visible')
       .and('include.text', 'Epic sadface: ') //no need full text
       .and('include.text', '/inventory.html')
     // confirm the username and the password fields

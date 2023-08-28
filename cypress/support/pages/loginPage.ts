@@ -24,7 +24,8 @@ export const LoginPage = {
     LoginPage.getPassword().should('not.have.class', 'error')
   },
   getLogin() {
-    return cy.get('[data-test="login-button"]')
+    // return cy.get('[data-test="login-button"]')
+    return cy.getByTest('login-button')
   },
 
   showsError(text: string) {
@@ -54,6 +55,8 @@ export const LoginPage = {
           [LoginPage.selectors.username]: username,
           [LoginPage.selectors.password]: password,
         })
+        LoginPage.getUsername().should('have.value', username)
+        LoginPage.getPassword().should('have.value', password)
         LoginPage.getLogin().click()
         cy.location('pathname').should('equal', '/inventory.html')
       },
