@@ -3,6 +3,7 @@ const registerDataSession = require('cypress-data-session/src/plugin')
 
 module.exports = defineConfig({
   e2e: {
+    // baseUrl, etc
     baseUrl: 'http://localhost:3001',
     supportFile: 'cypress/support/e2e.ts',
     env: {
@@ -33,7 +34,6 @@ module.exports = defineConfig({
       // implement node event listeners here
       // and load any plugins that require the Node environment
       registerDataSession(on, config)
-      require('cypress-watch-and-reload/plugins')(on, config)
       return config
     },
   },
