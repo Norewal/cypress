@@ -15,7 +15,13 @@ const InventoryItem = (props) => {
   }, [])
   const { history } = props
   // Get our queryparams now
-  const queryParams = new URLSearchParams(window.location.search)
+  //We cannot easily control window.location.search (that would be an end-to-end test
+  //if we opened a specific page), so let's make our component smarter and more testable.
+  //Let the component use the params as a fallback.
+  // const queryParams = new URLSearchParams(window.location.search)
+  const queryParams = new URLSearchParams(
+    window.location.search || props.search,
+  )
   let inventoryId = -1
   let item
 
