@@ -33,10 +33,11 @@ module.exports = defineConfig({
       // implement node event listeners here
       // and load any plugins that require the Node environment
       registerDataSession(on, config)
-      // require('cypress-watch-and-reload/plugins')(on, config)
+      require('cypress-watch-and-reload/plugins')(on, config)
       return config
     },
   },
+
   component: {
     devServer: {
       framework: 'create-react-app',

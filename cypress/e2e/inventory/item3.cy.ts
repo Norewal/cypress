@@ -1,13 +1,16 @@
 // import the bike light JSON fixture file
 // using the relative path
 import item from '@fixtures/bikeLight.json'
+import { LoginInfo } from '..'
 
 beforeEach(() => {
+  const user: LoginInfo = Cypress.env('users').standard
+
   cy.log('**log in**')
   cy.visit('/')
-  cy.get('[data-test="username"]').type('standard_user')
-  cy.get('[data-test="password"]').type('secret_sauce')
-  cy.get('[data-test="login-button"]').click()
+  cy.getByTest('username').type(user.username)
+  cy.getByTest('password').type(user.password)
+  cy.getByTest('login-button').click()
   cy.location('pathname').should('equal', '/inventory.html')
 })
 

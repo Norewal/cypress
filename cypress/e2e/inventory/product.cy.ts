@@ -29,7 +29,6 @@ describe('Product', () => {
       // https://glebbahmutov.com/cypress-examples/commands/assertions.html
       .should('have.attr', 'data-itemid')
       .should('be.a', 'string')
-
       // pass the value of the "data-itemid" attribute into a callback
       // https://on.cypress.io/then
       .then((itemId) => {
@@ -48,12 +47,10 @@ describe('Product', () => {
         // confirm we transition to the item's page
         // https://on.cypress.io/location
         cy.location('pathname').should('equal', '/inventory-item.html')
-
         // because we know the item's id
         // confirm the URL search parameter string
         // includes "id=item id" substring
         cy.location('search').should('include', `id=${itemId}`)
-
         // confirm the item details component is visible
         cy.get('#inventory_item_container .inventory_details')
           .should('be.visible')
@@ -65,10 +62,9 @@ describe('Product', () => {
             cy.contains('.inventory_details_price', price)
           })
       })
-
     // go back to the inventory page by clicking
     // "Back to products" button
-    cy.get('[data-test="back-to-products"]').click()
+    cy.getByTest('back-to-products').click()
     // confirm we are back at the inventory page
     cy.location('pathname').should('equal', '/inventory.html')
   })

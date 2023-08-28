@@ -6,9 +6,14 @@ describe('sorting', { testIsolation: false }, () => {
       setup() {
         cy.log('**log in**')
         cy.visit('/')
-        cy.get('[data-test="username"]').type('standard_user')
-        cy.get('[data-test="password"]').type('secret_sauce')
-        cy.get('[data-test="login-button"]').click()
+        // cy.get('[data-test="username"]').type('standard_user')
+        // cy.get('[data-test="password"]').type('secret_sauce')
+        // cy.get('[data-test="login-button"]').click()
+        // cy.getByTest('username').type('standard_user')
+        // cy.getByTest('password').type('secret_sauce')
+        cy.getByTest('username').type(user.username)
+        cy.getByTest('password').type(user.password)
+        cy.getByTest('login-button').click()
         cy.location('pathname').should('equal', '/inventory.html')
 
         cy.getCookie('session-username').should('exist')
@@ -33,7 +38,7 @@ describe('sorting', { testIsolation: false }, () => {
     // confirm the argument value at runtime
     expect(order, 'sort order').to.be.oneOf(['lohi', 'hilo', 'az', 'za'])
     cy.log(`**sort by ${order}**`)
-    cy.get('[data-test="product_sort_container"]').select(order)
+    cy.getByTest('product_sort_container').select(order)
   }
 
   function getPrices() {

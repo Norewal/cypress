@@ -1,32 +1,16 @@
 beforeEach(() => {
   cy.log('**log in**')
   cy.visit('/')
-  cy.get('[data-test="username"]').type('standard_user')
-  cy.get('[data-test="password"]').type('secret_sauce')
-  cy.get('[data-test="login-button"]').click()
+  cy.getByTest('username').type('standard_user')
+  cy.getByTest('password').type('secret_sauce')
+  cy.getByTest('login-button').click()
   cy.location('pathname').should('equal', '/inventory.html')
+  // load the bike light JSON fixture file
+  // https://on.cypress.io/fixture
 })
 
-// it('has an item with details', () => {
-// confirm there is an item in the inventory
-// with:
-// name: "Sauce Labs Bike Light"
-// description: "A red light isn't the desired state in testing but it sure helps when riding your bike at night"
-// price: $9.99
-// https://on.cypress.io/contains
-// https://on.cypress.io/within
-// cy.contains('.inventory_item', 'Sauce Labs Bike Light').within(() => {
-// cy.contains('.inventory_item_name', 'Sauce Labs Bike Light')
-// cy.contains(
-// '.inventory_item_desc',
-// "A red light isn't the desired state in testing but it sure helps when riding your bike at night",
-// )
-// cy.contains('.inventory_item_price', '$9.99')
-// })
-// })
-
 it('has an item with details', () => {
-  cy.fixture('bikeLight.json').then((item) => {
+  cy.fixture('bike-light.json').then((item) => {
     // and confirm there is an item in the inventory
     // with the name, description, and price listed in teh fixture object
     // https://on.cypress.io/contains
