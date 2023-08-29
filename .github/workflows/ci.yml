@@ -13,7 +13,7 @@ jobs:
       # Note: GitHub Actions have Node v18 installed
       build: npm run lint
       start: npm run start-18
-      wait-on: 'http://127.0.0.1:3001'
+      wait-on: 'http://127.0.0.1:3000'
 
   # in a separate job, run component tests
   # using the standard workflow
