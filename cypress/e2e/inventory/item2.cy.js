@@ -9,7 +9,7 @@ beforeEach(() => {
   // https://on.cypress.io/fixture
   // and save the loaded item under alias "item"
   // https://on.cypress.io/as
-  cy.fixture('bike-light.json').as('item')
+  cy.fixture('bikeLight.json').as('item')
 })
 
 // access the existing alias "item" inside the function callback

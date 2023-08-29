@@ -10,7 +10,7 @@ beforeEach(() => {
 })
 
 it('has an item with details', () => {
-  cy.fixture('bike-light.json').then((item) => {
+  cy.fixture('bikeLight.json').then((item) => {
     // and confirm there is an item in the inventory
     // with the name, description, and price listed in teh fixture object
     // https://on.cypress.io/contains

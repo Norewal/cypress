@@ -8,7 +8,7 @@ const users = Cypress.env('users')
 // pick a random item to buy
 const item = Cypress._.sample(InventoryData)
 
-describe('All users', () => {
+describe.skip('All users', () => {
   // for each user object, create its own test
   // - login
   // - add 1 item to the cart

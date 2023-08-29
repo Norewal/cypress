@@ -1,5 +1,11 @@
+import { LoginInfo } from '../index'
+
 describe('sorting', { testIsolation: false }, () => {
   before(() => {
+    const user: LoginInfo = Cypress.env('users').standard
+    if (!user) {
+      throw new Error('Missing the standard user')
+    }
     cy.dataSession({
       name: 'user session',
       shareAcrossSpecs: true,
@@ -18,7 +24,7 @@ describe('sorting', { testIsolation: false }, () => {
 
         cy.getCookie('session-username').should('exist')
       },
-      recreate(userCookie) {
+      recreate(userCookie: any) {
         cy.setCookie('session-username', userCookie.value, userCookie)
         cy.visit('/inventory.html')
       },

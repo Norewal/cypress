@@ -51,9 +51,9 @@ describe('sorting', () => {
     // get the username field and type the standard user
     // https://on.cypress.io/get
     // https://on.cypress.io/type
-    cy.getByTest('username').type(user.username)
+    cy.getByTest('username').type('standard_user')
     // get the password field and type the password
-    cy.getByTest('password').type(user.password)
+    cy.getByTest('password').type('secret_sauce')
     // get the login button and click on it
     // https://on.cypress.io/click
     cy.getByTest('login-button').click()
