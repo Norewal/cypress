@@ -1,5 +1,11 @@
+import { LoginInfo } from '../index'
+
 describe('sorting', { testIsolation: false }, () => {
   before(() => {
+    const user: LoginInfo = Cypress.env('users').standard
+    if (!user) {
+      throw new Error('Missing the standard user')
+    }
     cy.dataSession({
       name: 'user session',
       shareAcrossSpecs: true,
@@ -18,7 +24,7 @@ describe('sorting', { testIsolation: false }, () => {
 
         cy.getCookie('session-username').should('exist')
       },
-      recreate(userCookie) {
+      recreate(userCookie: any) {
         cy.setCookie('session-username', userCookie.value, userCookie)
         cy.visit('/inventory.html')
       },
@@ -34,7 +40,7 @@ describe('sorting', { testIsolation: false }, () => {
    * Sorts item by price or name
    * @param {'lohi'|'hilo'|'az'|'za'} order
    */
-  function sortBy(order) {
+  function sortBy(order: 'lohi' | 'hilo' | 'az' | 'za') {
     // confirm the argument value at runtime
     expect(order, 'sort order').to.be.oneOf(['lohi', 'hilo', 'az', 'za'])
     cy.log(`**sort by ${order}**`)

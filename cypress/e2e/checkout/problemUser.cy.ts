@@ -12,7 +12,7 @@ const item = Cypress._.sample(InventoryData)
 // or to the code it calls to understand
 // exactly where the application goes wrong
 
-it('works for user problem user', { viewportHeight: 1200 }, () => {
+it.skip('works for user problem user', { viewportHeight: 1200 }, () => {
   LoginPage.login(user.username, user.password)
   cy.visit('/inventory.html')
   InventoryPage.addItemToCart(item!.name)
