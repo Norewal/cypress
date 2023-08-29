@@ -4,7 +4,7 @@ const registerDataSession = require('cypress-data-session/src/plugin')
 module.exports = defineConfig({
   e2e: {
     // baseUrl, etc
-    baseUrl: 'http://localhost:3001',
+    baseUrl: 'http://localhost:3000',
     supportFile: 'cypress/support/e2e.ts',
     env: {
       users: {
