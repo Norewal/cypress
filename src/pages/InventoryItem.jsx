@@ -9,7 +9,7 @@ import Button, { BUTTON_SIZES, BUTTON_TYPES } from '../components/Button'
 import SwagLabsFooter from '../components/Footer'
 import './InventoryItem.css'
 
-const InventoryItem = (props) => {
+export const InventoryItem = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
@@ -28,6 +28,7 @@ const InventoryItem = (props) => {
   /* istanbul ignore else */
   if (queryParams.has('id')) {
     inventoryId = parseInt(queryParams.get('id'))
+    // console.log({ inventoryId })
   }
 
   if (inventoryId >= 0 && InventoryData.length > inventoryId) {

@@ -21,7 +21,7 @@ describe('Checkout', () => {
   it('goes through the check out pages', { viewportHeight: 1200 }, () => {
     // grab the "id" property from each item in the InventoryData array
     // Tip: I told you Lodash is a super neat library
-    const ids = Cypress._.map(InventoryData, 'id')
+    const ids = Cypress._.map(InventoryData, 'id').map((id) => ({ id, n: 1 }))
     //
     // set the ids in the local storage item "cart-contents"
     // Tip: local storage usually has stringified data
@@ -43,24 +43,6 @@ describe('Checkout', () => {
     cy.location('pathname').should('equal', '/checkout-step-one.html')
     //
     // fill the check out form with values "Joe Smith 90210"
-    // and click the "Continue" element after confirming
-    // the "Continue" element has the right "value" attribute
-    // https://on.cypress.io/within
-    // cy.get('.checkout_info_wrapper form').within(() => {
-    //   cy.get('#first-name').type('Joe')
-    //   cy.get('#last-name').type('Smith')
-    //   cy.get('#postal-code').type('90210')
-    //   cy.get('input[type=submit]')
-    //     .should('have.attr', 'value', 'Continue')
-    //     .click()
-    // })
-    // cy.get('.checkout_info_wrapper form')
-    //   .fillForm({
-    //     '#first-name': 'Joe',
-    //     '#last-name': 'Smith',
-    //     '#postal-code': '90210',
-    //   })
-    //   .submit()
     CheckoutPage.fillInformationForm().submit()
     //
     // we should be on the checkout step two page

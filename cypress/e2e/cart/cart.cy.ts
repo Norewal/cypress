@@ -28,9 +28,9 @@ describe('Cart', () => {
         'Sauce Labs Onesie',
       ]
       //find id for each item by name and store them in an array
-      const ids = items.map(
-        (name) => Cypress._.find(InventoryData, { name })!.id,
-      )
+      const ids = items
+        .map((name) => Cypress._.find(InventoryData, { name })!.id)
+        .map((id) => ({ id, n: 1 }))
       // add each item to cart using the InventoryPage object
       items.forEach(InventoryPage.addItemToCart)
       cy.log('**added all items to cart**')
@@ -62,7 +62,7 @@ describe('Cart', () => {
             // and confirm that within the item the name
             // is correct and the quantity is 1
             cy.contains('.inventory_item_name', itemName)
-            cy.contains('.cart_quantity', 1)
+            cy.get('.cart_quantity').should('have.value', 1)
           })
       })
 
@@ -103,23 +103,23 @@ describe('Cart', () => {
       //application/storage/local storage/loc:3000
       //Assuming the item ids are indeed 0, 1, and 2, can you confirm the right array of ids is stored in the local storage?
 
-      // get the application window object
-      // https://on.cypress.io/window
-      // cy.window()
-      //   // get its property "localStorage"
-      //   // https://on.cypress.io/its
-      //   .its('localStorage')
-      //   // and call the method "getItem" to get the cart contents
-      //   // https://on.cypress.io/invoke
-      //   .invoke('getItem', 'cart-contents')
-      //   .should('exist')
-      //   // confirm the list is [0, 1, 2]
-      //   // https://glebbahmutov.com/cypress-examples/commands/assertions.html
-      //   // Tip: local storage usually has stringified JSON
-      //   // @ts-ignore
-      //   .then(JSON.parse)
-      //   // .should('deep.equal', [0, 1, 2])
-      //   .should('deep.equal', ids)
+      //get the application window object
+      //on.cypress.io/window
+      https: cy.window()
+        // get its property "localStorage"
+        // https://on.cypress.io/its
+        .its('localStorage')
+        // and call the method "getItem" to get the cart contents
+        // https://on.cypress.io/invoke
+        .invoke('getItem', 'cart-contents')
+        .should('exist')
+        // confirm the list is [0, 1, 2]
+        // https://glebbahmutov.com/cypress-examples/commands/assertions.html
+        // Tip: local storage usually has stringified JSON
+        // @ts-ignore
+        .then(JSON.parse)
+        // .should('deep.equal', [0, 1, 2])
+        .should('deep.equal', ids)
     },
   )
 })

@@ -4,9 +4,10 @@ export class ShoppingCart {
     const curContents = ShoppingCart.getCartContents()
 
     /* istanbul ignore else */
-    if (curContents.indexOf(itemId) < 0) {
+    const item = curContents.find((x) => x.id === itemId)
+    if (!item) {
       // Item's not yet present - add it now
-      curContents.push(itemId)
+      curContents.push({ id: itemId, n: 1 })
 
       // We modified our cart, so store it now
       ShoppingCart.setCartContents(curContents)
@@ -16,9 +17,8 @@ export class ShoppingCart {
   static removeItem(itemId) {
     // pull out our current cart contents
     const curContents = ShoppingCart.getCartContents()
-    const itemIndex = curContents.indexOf(itemId)
+    const itemIndex = curContents.findIndex((x) => x.id === itemId)
 
-    /* istanbul ignore else */
     if (itemIndex >= 0) {
       // Remove this item from the array
       curContents.splice(itemIndex, 1)
@@ -33,7 +33,23 @@ export class ShoppingCart {
     const curContents = ShoppingCart.getCartContents()
 
     // If the item is in the array, return true
-    return curContents.indexOf(itemId) >= 0
+    return Boolean(curContents.find((x) => x.id === itemId))
+  }
+
+  static setQuantity(id, n) {
+    // get the current cart contents
+    const curContents = ShoppingCart.getCartContents()
+    // find the item id property "id" equal to the value id
+    const item = curContents.find((x) => x.id === id)
+    console.log({ id, n, curContents, item })
+    // do nothing if there is no such item
+    if (!item) {
+      return
+    }
+    // change the "n" property to the argument n
+    item.n = n
+    // We modified our cart, so store it now
+    ShoppingCart.setCartContents(curContents)
   }
 
   static getCartContents() {

@@ -34,7 +34,6 @@ describe('Cart', () => {
         //
         // it should be an empty array
         .should('deep.equal', [])
-      //
       cy.log('**adds an item by making a method call**')
       // add a product id 2 to the cart using ShoppingCart method
       // add a product id 4 to the cart using ShoppingCart method
@@ -45,15 +44,16 @@ describe('Cart', () => {
       cy.window().its('ShoppingCart').invoke('addItem', 2)
       cy.window().its('ShoppingCart').invoke('addItem', 4)
       InventoryPage.getCartBadge().should('have.text', 2)
-      //
       // grab the ShoppingCart reference again
       // and call the production method to get the cart contents
       // it should now be the list [2, 4]
       cy.window()
         .its('ShoppingCart')
         .invoke('getCartContents')
-        .should('deep.equal', [2, 4])
-      //
+        .should('deep.equal', [
+          { id: 2, n: 1 },
+          { id: 4, n: 1 },
+        ])
       cy.log('**visit the cart page**')
       // visit the cart page
       // https://on.cypress.io/visit
