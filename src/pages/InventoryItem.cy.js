@@ -98,11 +98,10 @@ describe('InventoryItem', { viewportHeight: 1000 }, () => {
       // verify the local storage has cart contents as an empty list
       // by retrying an assertion
       .should(() => {
-        expect(localStorage.getItem('cart-contents')).to.equal(
-          '[{"id":1,"n":1}]',
-        )
+        expect(localStorage.getItem('cart-contents')).to.equal('[]')
       })
   })
+
   //Even better it to place localStorage.getItem method into Cypress queue of commands using cy.wrap and cy.invoke combination:
   it('stores the cart items in the local storage', () => {
     cy.mountWithRouter(<InventoryItem search="id=1" />)
