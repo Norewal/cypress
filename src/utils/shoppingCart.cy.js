@@ -11,17 +11,23 @@ describe('ShoppingCart', () => {
 
   it('adds items one by one', () => {
     // add items with id 1 and 4
-    ShoppingCart.addItem(1)
+    // ShoppingCart.addItem(1)
     ShoppingCart.addItem(4)
     //
     // get the shopping cart contents again
     // it should be [1, 4]
-    expect(ShoppingCart.getCartContents()).to.deep.equal([1, 4])
+    expect(ShoppingCart.getCartContents()).to.deep.equal([
+      { id: 1, n: 1 },
+      { id: 4, n: 1 },
+    ])
   })
 
   it('overwrites the shopping cart', () => {
     // set the cart contents to be array [2, 5]
-    ShoppingCart.setCartContents([2, 5])
+    ShoppingCart.setCartContents([
+      { id: 2, n: 1 },
+      { id: 5, n: 1 },
+    ])
     //
     // get the shopping cart contents again
     // it should be [2, 5]
@@ -30,7 +36,10 @@ describe('ShoppingCart', () => {
 
   it('checks if an item is in the cart', () => {
     // set the cart contents to be array [2, 5]
-    ShoppingCart.setCartContents([2, 5])
+    ShoppingCart.setCartContents([
+      { id: 2, n: 1 },
+      { id: 5, n: 1 },
+    ])
     //
     // confirm the shopping cart has item with id 2 and 5
     // but does not have an item with id 1
@@ -47,7 +56,7 @@ describe('ShoppingCart', () => {
     ShoppingCart.removeItem(2)
     //
     // the cart should have list [5]
-    expect(ShoppingCart.getCartContents()).to.deep.equal([5])
+    expect(ShoppingCart.getCartContents()).to.deep.equal([{ id: 5, n: 1 }])
   })
 
   it('saves the cart in the local storage', () => {

@@ -28,9 +28,9 @@ describe('Cart', () => {
         'Sauce Labs Onesie',
       ]
       //find id for each item by name and store them in an array
-      const ids = items.map(
-        (name) => Cypress._.find(InventoryData, { name })!.id,
-      )
+      const ids = items
+        .map((name) => Cypress._.find(InventoryData, { name })!.id)
+        .map((id) => ({ id, n: 1 }))
       // add each item to cart using the InventoryPage object
       items.forEach(InventoryPage.addItemToCart)
       cy.log('**added all items to cart**')
@@ -62,7 +62,7 @@ describe('Cart', () => {
             // and confirm that within the item the name
             // is correct and the quantity is 1
             cy.contains('.inventory_item_name', itemName)
-            cy.contains('.cart_quantity', 1)
+            cy.get('.cart_quantity').should('have.value', 1)
           })
       })
 

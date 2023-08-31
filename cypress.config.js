@@ -1,11 +1,14 @@
 const { defineConfig } = require('cypress')
 const registerDataSession = require('cypress-data-session/src/plugin')
+// https://github.com/bahmutov/cypress-split
+const cypressSplit = require('cypress-split')
 
 module.exports = defineConfig({
   e2e: {
     // baseUrl, etc
     baseUrl: 'http://localhost:3000',
     supportFile: 'cypress/support/e2e.ts',
+    experimentalRunAllSpecs: true,
     env: {
       users: {
         standard: {
@@ -33,7 +36,10 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
       // and load any plugins that require the Node environment
+      cypressSplit(on, config)
       registerDataSession(on, config)
+      // https://github.com/bahmutov/cypress-watch-and-reload
+      require('cypress-watch-and-reload/plugins')(on, config)
       return config
     },
   },

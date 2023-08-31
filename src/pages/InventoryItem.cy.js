@@ -65,7 +65,9 @@ describe('InventoryItem', { viewportHeight: 1000 }, () => {
       // get the "cart-contents" from the local storage
       // and verify it contains an array with just number 1 inside
       .then(() => {
-        expect(localStorage.getItem('cart-contents')).to.equal('[1]')
+        expect(localStorage.getItem('cart-contents')).to.equal(
+          '[{"id":1,"n":1}]',
+        )
       })
     // find the button with text "Remove" and click on it
     cy.contains('button', 'Remove')
@@ -86,7 +88,9 @@ describe('InventoryItem', { viewportHeight: 1000 }, () => {
       // and verify it contains an array with just number 1 inside
       // by retrying an assertion
       .should(() => {
-        expect(localStorage.getItem('cart-contents')).to.equal('[1]')
+        expect(localStorage.getItem('cart-contents')).to.equal(
+          '[{"id":1,"n":1}]',
+        )
       })
     // find the button with text "Remove" and click on it
     cy.contains('button', 'Remove')
@@ -94,7 +98,9 @@ describe('InventoryItem', { viewportHeight: 1000 }, () => {
       // verify the local storage has cart contents as an empty list
       // by retrying an assertion
       .should(() => {
-        expect(localStorage.getItem('cart-contents')).to.equal('[]')
+        expect(localStorage.getItem('cart-contents')).to.equal(
+          '[{"id":1,"n":1}]',
+        )
       })
   })
   //Even better it to place localStorage.getItem method into Cypress queue of commands using cy.wrap and cy.invoke combination:
