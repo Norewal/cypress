@@ -14,53 +14,34 @@ describe('CartItem', () => {
 
   it('shows a cart item', () => {
     // pick an item from the inventory list
-    const item = InventoryData[1]
-    //
+    const item = InventoryData[2]
     // mount the cart item (with the router), passing the item as a prop
     cy.mountWithRouter(<CartItem item={item} />)
-    //
     // confirm the item is on the page
     // and the quantity is 1
-    //
-    // confirm the name of the item is shown in red
-    // meaning the inventory item CSS style has been applied
-    // "have.css", "color", RGB triple
     cy.get('.cart_item').within(() => {
       cy.get('.cart_quantity').should('have.value', 1)
+      // confirm the name of the item is shown in red
+      // meaning the inventory item CSS style has been applied
+      // "have.css", "color", RGB triple
       cy.get('.inventory_item_name').should(
         'have.css',
         'color',
-        'rgb(226, 35, 26)', //#e2231a not working...
+        'rgb(226, 35, 26)',
       )
     })
   })
 
-  it('adds items one by one', () => {
-    // add items with id 1 and 4
-    ShoppingCart.addItem(1)
-    ShoppingCart.addItem(4)
-    // get the shopping cart contents again
-    // it should be [1, 4]
-    expect(ShoppingCart.getCartContents()).to.deep.equal([
-      { id: 1, n: 1 },
-      { id: 4, n: 1 },
-    ])
-  })
-
   it('removes a cart item', () => {
     // pick an item from the inventory list
-    const item = InventoryData[1]
-    //
+    const item = InventoryData[2]
     // mount the cart item (with the router), passing the item as a prop
     // and with showButton=true prop to show the "Remove" button
     cy.mountWithRouter(<CartItem item={item} showButton={true} />)
-    //
     // in the cart item find the Remove button and click it
     cy.get('.cart_item').contains('button', 'Remove').click()
-    //
     // the cart item should be gone
     cy.get('.cart_item').should('not.exist')
-    //
     // and an element with class "removed_cart_item" should be there instead
     cy.get('.removed_cart_item')
   })
@@ -70,7 +51,6 @@ describe('CartItem', () => {
     const item = InventoryData[2]
     // mount the cart item (with the router), passing the item as a prop
     cy.mountWithRouter(<CartItem item={item} />)
-    //
     // confirm the item is on the page
     // and the quantity is 1 initially
     // and we change it to 5

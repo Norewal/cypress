@@ -19,7 +19,6 @@ export class ShoppingCart {
     const curContents = ShoppingCart.getCartContents()
     const itemIndex = curContents.findIndex((x) => x.id === itemId)
 
-    /* istanbul ignore else */
     if (itemIndex >= 0) {
       // Remove this item from the array
       curContents.splice(itemIndex, 1)
@@ -90,22 +89,6 @@ export class ShoppingCart {
 
   static registerCartListener(handler) {
     ShoppingCart.LISTENERS.push(handler)
-  }
-
-  static setQuantity(id, n) {
-    // get the current cart contents
-    const curContents = ShoppingCart.getCartContents()
-    // find the item id property "id" equal to the value id
-    const item = curContents.find((x) => x.id === id)
-    console.log({ id, n, curContents, item })
-    // do nothing if there is no such item
-    if (!item) {
-      return
-    }
-    // change the "n" property to the argument n
-    item.n = n
-    // We modified our cart, so store it now
-    ShoppingCart.setCartContents(curContents)
   }
 }
 

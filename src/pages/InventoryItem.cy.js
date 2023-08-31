@@ -113,7 +113,7 @@ describe('InventoryItem', { viewportHeight: 1000 }, () => {
       .invoke('getItem', 'cart-contents')
       // the local storage entry is a string
       .apply(JSON.parse)
-      .should('deep.equal', [1])
+      .should('deep.equal', [{ id: 1, n: 1 }])
     // find the button with text "Remove" and click on it
     cy.contains('button', 'Remove').click()
     // verify the local storage has cart contents as an empty list

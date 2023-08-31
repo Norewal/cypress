@@ -11,7 +11,7 @@ describe('ShoppingCart', () => {
 
   it('adds items one by one', () => {
     // add items with id 1 and 4
-    // ShoppingCart.addItem(1)
+    ShoppingCart.addItem(1)
     ShoppingCart.addItem(4)
     //
     // get the shopping cart contents again
@@ -24,11 +24,7 @@ describe('ShoppingCart', () => {
 
   it('overwrites the shopping cart', () => {
     // set the cart contents to be array [2, 5]
-    ShoppingCart.setCartContents([
-      { id: 2, n: 1 },
-      { id: 5, n: 1 },
-    ])
-    //
+    ShoppingCart.setCartContents([2, 5])
     // get the shopping cart contents again
     // it should be [2, 5]
     expect(ShoppingCart.getCartContents()).to.deep.equal([2, 5])
@@ -50,11 +46,12 @@ describe('ShoppingCart', () => {
 
   it('removes an item by id', () => {
     // set the cart contents to be array [2, 5]
-    ShoppingCart.setCartContents([2, 5])
-    //
+    ShoppingCart.setCartContents([
+      { id: 2, n: 1 },
+      { id: 5, n: 1 },
+    ])
     // remove an item with id 2 from the cart
     ShoppingCart.removeItem(2)
-    //
     // the cart should have list [5]
     expect(ShoppingCart.getCartContents()).to.deep.equal([{ id: 5, n: 1 }])
   })

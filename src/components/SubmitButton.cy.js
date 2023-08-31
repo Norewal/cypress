@@ -6,18 +6,16 @@ it('shows the submit button', () => {
   // passing value, custom class, and test id props
   cy.mount(
     <SubmitButton
-      customClass="submit-button"
-      testId="continue"
       value="Continue"
-      //   onClick={cy.stub().as('click')}
+      customClass="submit-button"
+      testId="submit-it"
     />,
   )
-  //
   // confirm the component appears on the page
   // and has the expected value and attributes
   cy.contains('input.submit-button', 'Continue')
     .should('have.value', 'Continue')
-    .and('have.attr', 'data-test', 'continue')
-    .and('have.attr', 'id', 'continue')
-    .and('have.attr', 'name', 'continue')
+    .and('have.attr', 'data-test', 'submit-it')
+    .and('have.attr', 'id', 'submit-it')
+    .and('have.attr', 'name', 'submit-it')
 })

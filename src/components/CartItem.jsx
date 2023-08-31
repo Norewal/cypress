@@ -42,7 +42,7 @@ const CartItem = ({ item, history, showButton }) => {
           type="number"
           className="cart_quantity"
           // value={1}
-          value={1}
+          value={shoppingCartItem.n}
           onChange={(evt) => {
             const n = Number.isNaN(evt.target.valueAsNumber)
               ? 0
