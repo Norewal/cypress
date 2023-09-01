@@ -43,7 +43,8 @@
     "cy:open": "cypress open --e2e",
     "dev": "start-test 3000 cy:open",
     "ci": "start-test 3000",
-    "lint": "tsc --noEmit --pretty"
+    "lint": "tsc --noEmit --pretty",
+    "clean": "rm -rf .nyc_output coverage"
   },
   "browserslist": {
     "production": [
