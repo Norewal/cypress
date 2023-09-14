@@ -6,7 +6,7 @@ const cypressSplit = require('cypress-split')
 module.exports = defineConfig({
   e2e: {
     // baseUrl, etc
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'http://localhost:3001',
     supportFile: 'cypress/support/e2e.ts',
     experimentalRunAllSpecs: true,
     env: {
