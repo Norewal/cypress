@@ -7,7 +7,9 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
+    "@types/ramda": "^0.29.3",
     "js-cookie": "^2.2.1",
+    "ramda": "^0.29.0",
     "react": "^17.0.2",
     "react-app-polyfill": "^2.0.0",
     "react-burger-menu": "^3.0.6",
@@ -25,6 +27,7 @@
     "@bahmutov/cypress-code-coverage": "^2.6.1",
     "@cypress/instrument-cra": "^1.4.0",
     "chai-sorted": "^0.2.0",
+    "check-code-coverage": "^1.10.5",
     "cypress": "^12.17.2",
     "cypress-data-session": "^2.7.0",
     "cypress-map": "^1.21.1",
@@ -44,7 +47,8 @@
     "dev": "start-test 3000 cy:open",
     "ci": "start-test 3000",
     "lint": "tsc --noEmit --pretty",
-    "clean": "rm -rf .nyc_output coverage"
+    "clean": "rm -rf .nyc_output coverage",
+    "cc-badge": "update-badge"
   },
   "browserslist": {
     "production": [
