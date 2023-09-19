@@ -19,12 +19,3 @@ jobs:
         with:
           start: npm run start-18
           wait-on: 'http://127.0.0.1:3000'
-      - name: Update code coverage badge 🪪
-        run: npm run cc-badge
-      - name: Commit any changed files 💾
-        # https://github.com/stefanzweifel/git-auto-commit-action
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Updated badges
-          branch: main
-          file_pattern: README.md

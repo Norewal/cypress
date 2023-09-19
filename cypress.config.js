@@ -41,9 +41,10 @@ module.exports = defineConfig({
       // and load any plugins that require the Node environment
       cypressSplit(on, config)
       registerDataSession(on, config)
-      require('@bahmutov/cypress-code-coverage/plugin')(on, config)
       // https://github.com/bahmutov/cypress-watch-and-reload
       require('cypress-watch-and-reload/plugins')(on, config)
+      // https://github.com/bahmutov/cypress-code-coverage
+      require('@bahmutov/cypress-code-coverage/plugin')(on, config)
       return config
     },
   },

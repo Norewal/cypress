@@ -27,4 +27,6 @@ screenshots
 storybook-static
 .tmp
 .eslintcache
+
 cypress/videos/
+.nyc_output/
