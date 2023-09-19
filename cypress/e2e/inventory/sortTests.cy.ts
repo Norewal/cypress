@@ -60,6 +60,18 @@ describe('sorting', { testIsolation: false }, () => {
     return cy.get('.inventory_item_name').map('innerText').print('items %o')
   }
 
+  it('does nothing for invalid sort options', () => {
+    // the current sort option
+    cy.contains('.active_option', 'Name (A to Z)')
+    cy.getByTest('product_sort_container').invoke(
+      'append',
+      '<option value="nope">Nope</option>',
+    )
+    cy.getByTest('product_sort_container').select('nope')
+    // the active sort option is blank
+    cy.get('.active_option').should('have.text', '')
+  })
+
   it('by price lowest to highest', () => {
     sortBy('lohi')
     getPrices().should('be.ascending')
@@ -79,17 +91,5 @@ describe('sorting', { testIsolation: false }, () => {
   it('by name from Z to A', () => {
     sortBy('za')
     getNames().should('be.descending')
-  })
-
-  it('does nothing for invalid sort options', () => {
-    // the current sort option
-    cy.contains('.active_option', 'Name (A to Z)')
-    cy.getByTest('product_sort_container').invoke(
-      'append',
-      '<option value="nope">Nope</option>',
-    )
-    cy.getByTest('product_sort_container').select('nope')
-    // the active sort option is blank
-    cy.get('.active_option').should('have.text', '')
   })
 })
