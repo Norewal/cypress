@@ -93,7 +93,7 @@ export class ShoppingCart {
 }
 
 ShoppingCart.LISTENERS = []
-
+/* istanbul ignore else */
 if (window.Cypress) {
   // allow Cypress tests to call ShoppingCart methods
   // and access its data

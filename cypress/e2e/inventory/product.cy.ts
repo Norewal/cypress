@@ -68,4 +68,26 @@ describe('Product', () => {
     // confirm we are back at the inventory page
     cy.location('pathname').should('equal', '/inventory.html')
   })
+
+  it('shows item not found', () => {
+    cy.visit('/inventory-item.html?id=10001')
+    cy.contains('.inventory_details_name', 'ITEM NOT FOUND')
+    cy.get('.inventory_details_img').should(
+      'have.attr',
+      'alt',
+      'ITEM NOT FOUND',
+    )
+  })
+
+  it('navigates by clicking the thumbnail image', () => {
+    const name = 'Sauce Labs Fleece Jacket'
+    cy.contains('.inventory_item', name)
+      .find('.inventory_item_img a:has(img)')
+      .click()
+    cy.location('pathname').should('equal', '/inventory-item.html')
+    cy.location('search').should('match', /id=\d+/)
+    cy.contains('button', 'Back to products').click()
+    // confirm we are back at the inventory page
+    cy.location('pathname').should('equal', '/inventory.html')
+  })
 })
