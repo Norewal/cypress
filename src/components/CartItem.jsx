@@ -37,11 +37,9 @@ const CartItem = ({ item, history, showButton }) => {
 
     return (
       <div className="cart_item">
-        {/* <div className="cart_quantity">1</div> */}
         <input
           type="number"
           className="cart_quantity"
-          // value={1}
           value={shoppingCartItem.n}
           onChange={(evt) => {
             const n = Number.isNaN(evt.target.valueAsNumber)
@@ -51,6 +49,7 @@ const CartItem = ({ item, history, showButton }) => {
             setQuantity(n)
           }}
         />
+        {/* <div className="cart_quantity">1</div> */}
         <div className="cart_item_label">
           <a
             href="#"

@@ -1,5 +1,10 @@
+<<<<<<<< HEAD:cypress/e2e/cart/addToChart.cy.ts
 import { LoginPage } from '@support/pages/loginPage'
 import { InventoryPage } from '@support/pages/inventoryPage'
+========
+import { LoginPage } from '@support/pages/login.page'
+import { InventoryPage } from '@support/pages/inventory.page'
+>>>>>>>> origin/bonus12:cypress/e2e/cart/add-to-cart.cy.ts
 import { LoginInfo } from '..'
 
 describe('Cart', () => {

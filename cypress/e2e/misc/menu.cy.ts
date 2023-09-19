@@ -1,9 +1,10 @@
 import { LoginPage } from '@support/pages/loginPage'
+import { InventoryPage } from '@support/pages/inventoryPage'
 import { LoginInfo } from '..'
-import { InventoryData } from 'utils/InventoryData'
-import { CheckoutPage } from '@support/pages/checkoutPage'
 
-describe('Checkout', { viewportHeight: 1200 }, () => {
+describe('Menu', () => {
+  // create a small type on the fly using jsdoc comment
+  // just to help type check help us
   const user: LoginInfo = Cypress.env('users').standard
   // we can even check if the user object is valid
   if (!user) {
@@ -14,82 +15,60 @@ describe('Checkout', { viewportHeight: 1200 }, () => {
   // or restore the previous user session
   beforeEach(() => {
     LoginPage.login(user.username, user.password)
-  })
-
-  it('cancels checkout', () => {
-    const ids = Cypress._.map(InventoryData, 'id').map((id) => ({ id, n: 1 }))
-    window.localStorage.setItem('cart-contents', JSON.stringify(ids))
-    cy.visit('/checkout-step-one.html')
-    cy.contains('button', 'Cancel').click()
-    cy.log('**back at the cart page**')
-    cy.location('pathname').should('equal', '/cart.html')
-  })
-
-  it('requires all inputs', () => {
-    const ids = Cypress._.map(InventoryData, 'id').map((id) => ({ id, n: 1 }))
-    window.localStorage.setItem('cart-contents', JSON.stringify(ids))
-    cy.visit('/checkout-step-one.html')
-    cy.get('input[type=submit]').click()
-    cy.contains('[data-test=error]', 'Error: First Name is required').should(
-      'be.visible',
-    )
-    cy.get('[data-test="firstName"]').type('Joe')
-    cy.get('input[type=submit]').click()
-    cy.contains('[data-test=error]', 'Error: Last Name is required').should(
-      'be.visible',
-    )
-    cy.get('[data-test="lastName"]').type('Last')
-    cy.get('input[type=submit]').click()
-    cy.contains('[data-test=error]', 'Error: Postal Code is required').should(
-      'be.visible',
-    )
-    cy.get('[data-test="postalCode"]').type('90210')
-    cy.get('input[type=submit]').click()
-    cy.location('pathname').should('equal', '/checkout-step-two.html')
-  })
-
-  it('goes through the check out pages', () => {
-    // grab the "id" property from each item in the InventoryData array
-    // Tip: I told you Lodash is a super neat library
-    const ids = Cypress._.map(InventoryData, 'id').map((id) => ({ id, n: 1 }))
-    // set the ids in the local storage item "cart-contents"
-    // Tip: local storage usually has stringified data
-    window.localStorage.setItem('cart-contents', JSON.stringify(ids))
-    // visit the cart page
-    // https://on.cypress.io/visit
-    cy.visit('/cart.html')
-    // confirm each item name is present
-    // confirm the cart items list has the right number of elements
-    cy.get('.cart_list .cart_item').should('have.length', InventoryData.length)
-    // click on the Checkout button
-    cy.contains('button', 'Checkout').click()
-    // we should be on the checkout step one page
-    // https://on.cypress.io/location
-    cy.location('pathname').should('equal', '/checkout-step-one.html')
-    // fill the check out form with values "Joe Smith 90210"
-    CheckoutPage.fillInformationForm().submit()
-    // we should be on the checkout step two page
-    cy.location('pathname').should('equal', '/checkout-step-two.html')
-    // the summary page shows the expected number of cart items
-    cy.get('.cart_list .cart_item').should('have.length', InventoryData.length)
-    // find the "Finish" button and click on it
-    // https://on.cypress.io/contains
-    // tip: I like using cy.contains with selector and text
-    // to avoid accidental text match and confirm the button's caption text
-    cy.contains('[data-test=finish]', 'Finish').click()
-    // we should be on the checkout complete page
-    cy.location('pathname').should('equal', '/checkout-complete.html')
-    // it shows the checkout complete component
-    cy.get('#checkout_complete_container').should('be.visible')
-    // the application should have cleared the local storage item "cart-contents"
-    // tip: the item you get from local storage should not exist
-    cy.window()
-      .its('localStorage')
-      .invoke('getItem', 'cart-contents')
-      .should('not.exist')
-
-    cy.log('**Back Home goes to the inventory page**')
-    cy.contains('button', 'Back Home').click()
+    cy.visit('/inventory.html')
     cy.location('pathname').should('equal', '/inventory.html')
+  })
+
+  it('shows all items', () => {
+    cy.window()
+      .its('ShoppingCart')
+      .invoke('setCartContents', [{ id: 0, n: 2 }])
+
+    cy.visit('/cart.html')
+    InventoryPage.getCartBadge().should('have.text', 1)
+
+    cy.contains('button', 'Open Menu')
+      .click()
+      // add short wait to make this step noticeable in the video
+      .wait(500)
+    cy.contains('a', 'All Items').click()
+
+    cy.location('pathname').should('equal', '/inventory.html')
+    InventoryPage.getCartBadge().should('have.text', 1)
+  })
+
+  it('resets the shopping cart', () => {
+    cy.window()
+      .its('ShoppingCart')
+      .invoke('setCartContents', [{ id: 0, n: 2 }])
+
+    cy.visit('/cart.html')
+    InventoryPage.getCartBadge().should('have.text', 1)
+
+    cy.contains('button', 'Open Menu').click().wait(500)
+    cy.contains('a', 'Reset App State').click()
+
+    InventoryPage.getCartBadge().should('not.exist')
+    cy.window()
+      .its('ShoppingCart')
+      .invoke('getCartContents')
+      .should('deep.equal', [])
+    // Note: the cart page does not reset the list of items
+    // when we reset the app state, which to me seems like a bug
+  })
+
+  // SKIP because hitting a problem fetching code coverage
+  // from the window object on the 2nd domain
+  it.skip('goes to the About page', () => {
+    cy.contains('button', 'Open Menu').click().wait(500)
+    cy.contains('a', 'About').click()
+    cy.origin('saucelabs.com', () => {
+      // cy.location('hostname').should('equal', 'saucelabs.com')
+      cy.log('At SauceLabs')
+      cy.location('hostname').should('equal', 'saucelabs.com')
+      cy.go('back')
+    })
+    // confirm we are back at our original origin
+    cy.location('origin').should('equal', Cypress.config('baseUrl'))
   })
 })

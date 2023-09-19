@@ -16,10 +16,10 @@
     }
   },
   "include": [
+    "cypress/support/component.js",
+    "cypress/support/**/*.ts",
     "cypress/e2e/**/*.js",
     "cypress/e2e/**/*.ts",
-    "cypress/support/**/*.ts",
-    "src/**/*.cy.js",
-    "src/pages/InventoryItem.cy.ts"
+    "src/**/*.cy.js"
   ]
 }
