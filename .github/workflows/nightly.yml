@@ -1,3 +1,5 @@
+# .github/workflows/nightly.yml
+
 name: nightly
 on:
   # run this workflow every night at 3am
@@ -6,16 +8,67 @@ on:
   # or when the user triggers it from GitHub Actions page
   workflow_dispatch:
 jobs:
-  nightly:
+  names:
     runs-on: ubuntu-22.04
     steps:
-      - name: Checkout
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+      - name: Install 📦
+        uses: cypress-io/github-action@v5
+        with:
+          runTests: false
+      - name: Print E2E tests 🖨️
+        run: npm run names
+      - name: Print Component tests 🖨️
+        run: npm run names:component
+
+  nightly:
+    runs-on: ubuntu-22.04
+
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit
+      # and push the changed files back to the repository.
+      contents: write
+
+    steps:
+      - name: Checkout 🛎️
         uses: actions/checkout@v3
       - name: Print Node version
         run: node -v
+
       # https://github.com/cypress-io/github-action
-      - name: Cypress tests
+      - name: Cypress component tests
         uses: cypress-io/github-action@v5
         with:
+          # catch any it.only left in the code
+          build: npm run only
+          component: true
+
+      - name: Cypress E2E tests
+        uses: cypress-io/github-action@v5
+        with:
+          # previous step has already installed everything
+          install: false
           start: npm run start-18
           wait-on: 'http://127.0.0.1:3000'
+
+      - name: Code coverage summary 📊
+        run: npx nyc report
+
+      - name: Store code coverage folder 📈
+        # https://github.com/actions/upload-artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage
+          path: coverage/
+
+      - name: Update code coverage badge 🪪
+        run: npm run cc-badge
+
+      - name: Commit any changed files 💾
+        # https://github.com/stefanzweifel/git-auto-commit-action
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Updated badges
+          branch: main
+          file_pattern: README.md

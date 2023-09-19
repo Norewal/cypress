@@ -2,6 +2,7 @@ const { defineConfig } = require('cypress')
 const registerDataSession = require('cypress-data-session/src/plugin')
 // https://github.com/bahmutov/cypress-split
 const cypressSplit = require('cypress-split')
+const path = require('path')
 
 module.exports = defineConfig({
   e2e: {
@@ -50,9 +51,47 @@ module.exports = defineConfig({
   },
 
   component: {
+    setupNodeEvents(on, config) {
+      // https://github.com/bahmutov/cypress-code-coverage
+      require('@bahmutov/cypress-code-coverage/plugin')(on, config)
+      // IMPORTANT to return the config object
+      // with the any changed environment variables
+      return config
+    },
     devServer: {
       framework: 'create-react-app',
       bundler: 'webpack',
+      webpackConfig: {
+        resolve: {
+          alias: {
+            '@cypress': path.resolve(__dirname, 'cypress'),
+          },
+        },
+        // add babel-plugin-istanbul and apply it to
+        // the source code, but not to node_modules
+        // or Cypress component specs
+        mode: 'development',
+        devtool: false,
+        module: {
+          rules: [
+            // application and Cypress files are bundled like React components
+            // and instrumented using the babel-plugin-istanbul
+            {
+              test: /\.jsx?$/,
+              // do not instrument node_modules
+              // or Cypress component specs
+              exclude: /node_modules|\.cy\.js/,
+              use: {
+                loader: 'babel-loader',
+                options: {
+                  presets: ['@babel/preset-env', '@babel/preset-react'],
+                  plugins: ['istanbul'],
+                },
+              },
+            },
+          ],
+        },
+      },
     },
   },
 })

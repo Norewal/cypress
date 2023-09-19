@@ -13,7 +13,6 @@ describe('ShoppingCart', () => {
     // add items with id 1 and 4
     ShoppingCart.addItem(1)
     ShoppingCart.addItem(4)
-    //
     // get the shopping cart contents again
     // it should be [1, 4]
     expect(ShoppingCart.getCartContents()).to.deep.equal([
@@ -36,8 +35,7 @@ describe('ShoppingCart', () => {
       { id: 2, n: 1 },
       { id: 5, n: 1 },
     ])
-    //
-    // confirm the shopping cart has item with id 2 and 5
+    // confirm the shopping cart has item with id 2 and 4
     // but does not have an item with id 1
     expect(ShoppingCart.isItemInCart(2), 'item with id 2').to.be.true
     expect(ShoppingCart.isItemInCart(5), 'item with id 5').to.be.true
