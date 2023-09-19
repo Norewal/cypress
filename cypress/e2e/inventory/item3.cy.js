@@ -1,6 +1,6 @@
 // import the bike light JSON fixture file
 // using the relative path
-import item from '@fixtures/bike-light.json'
+import item from '@fixtures/bikeLight.json'
 
 describe('Inventory', () => {
   beforeEach(() => {
